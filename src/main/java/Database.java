@@ -1,5 +1,8 @@
 public class Database {
-    Superhero[] Superheroes = new Superhero[5];
+    Superhero[] Superheroes = new Superhero[2];
+
+
+    private boolean full = false;
 
     public void CreateHero(String name, String superheroName, String superPowers, int creationYear, int strength) {
         for (int i = 0; i < Superheroes.length; i++) {
@@ -7,6 +10,7 @@ public class Database {
                 Superheroes[i] = new Superhero(name, superheroName, superPowers, creationYear, strength);
                 break;
             }
+            full = true;
         }
     }
 
@@ -23,5 +27,9 @@ public class Database {
                         (i + 1), hero.getName(), hero.getSuperheroName(), hero.getSuperPowers(), hero.getCreationYear(), hero.getStrength());
             }
         }
+    }
+
+    public boolean isFull() {
+        return full;
     }
 }

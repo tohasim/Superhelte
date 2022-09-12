@@ -16,7 +16,7 @@ public class Main {
             keyboard.nextLine();
             switch (menuItem){
                 case 1:
-                    CreateSuperheroMenu(heroes, keyboard);
+                    CreateSuperhero(heroes, keyboard);
                     break;
                 case 2:
                     heroes.PrintHeroes();
@@ -32,7 +32,11 @@ public class Main {
         }
     }
 
-    private static void CreateSuperheroMenu(Database heroes, Scanner keyboard) {
+    private static void CreateSuperhero(Database heroes, Scanner keyboard) {
+        if (heroes.isFull()){
+            System.out.println("Database full");
+            return;
+        }
         String superheroName = null;
         String hasSuperName;
         String superPowers;

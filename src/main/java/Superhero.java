@@ -1,12 +1,14 @@
 import java.util.Arrays;
 
 public class Superhero {
-    private String name, superheroName;
+    private String name;
+    private String superheroName = "Unkown";
     private String superPowers;
     private int creationYear, Strength;
 
     public Superhero(String name, String superheroName, String superPowers, int creationYear, int strength) {
         this.name = name;
+        if (superheroName != null)
         this.superheroName = superheroName;
         this.superPowers = superPowers;
         this.creationYear = creationYear;
