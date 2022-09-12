@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Database heroes = new Database();
+        Database superHeroDataBase = new Database();
         Scanner keyboard = new Scanner(System.in);
         boolean shouldRun = true;
         int menuItem;
@@ -16,10 +16,10 @@ public class Main {
             keyboard.nextLine();
             switch (menuItem){
                 case 1:
-                    CreateSuperhero(heroes, keyboard);
+                    CreateSuperhero(superHeroDataBase, keyboard);
                     break;
                 case 2:
-                    heroes.PrintHeroes();
+                    superHeroDataBase.PrintHeroes();
                     break;
                 case 9:
                     System.out.println("Ok, hav en god dag");
