@@ -34,6 +34,7 @@ public class Main {
 
     private static void CreateSuperhero(Database heroes, Scanner keyboard) {
         boolean answered = false;
+        boolean isHuman = false;
         String superheroName = null;
         String hasSuperName = "";
         String superPowers;
@@ -46,11 +47,30 @@ public class Main {
             System.out.println("Har din superhelt et superhelte navn? (j/n)");
             hasSuperName = keyboard.nextLine();
             if (hasSuperName.equals("j")) {
+                System.out.println("Hvad er din superhelt's superhelte navn?");
+                superheroName = keyboard.nextLine();
+                answered = true;
+            } else if (hasSuperName.equals("n")) {
+                answered = true;
+            } else {
+                System.out.println("Vælg venligst enten (j)a eller (n)ej");
             }
         }
-        if (hasSuperName.equals("j")){
-            System.out.println("Hvad er  din superhelt's superheltenavn?");
-            superheroName = keyboard.nextLine();
+        answered = false;
+        while(!answered){
+            System.out.println("Er din superhelt menneske? (j/n)");
+            switch (keyboard.nextLine()){
+                case "j":
+                    isHuman = true;
+                    answered = true;
+                    break;
+                case "n":
+                    isHuman = false;
+                    answered = true;
+                    break;
+                default:
+                    System.out.println("Vælg venligst enten (j)a eller (n)ej");
+            }
         }
         System.out.println("Hvilke superkræfter har din superhelt? (f.eks: \"flyve, røngtensyn, superduft\")");
         superPowers = keyboard.nextLine();
@@ -60,6 +80,6 @@ public class Main {
         System.out.println("Hvor stærk er din superhelt?");
         Strength = keyboard.nextInt();
         keyboard.nextLine();
-        heroes.CreateHero(name, superheroName, superPowers, creationYear, Strength);
+        heroes.CreateHero(name, isHuman, superheroName, superPowers, creationYear, Strength);
     }
 }

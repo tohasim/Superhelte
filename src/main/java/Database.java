@@ -1,31 +1,26 @@
+import java.util.ArrayList;
+
 public class Database {
-    Superhero[] Superheroes = new Superhero[2];
+    ArrayList<Superhero> Superheroes = new ArrayList<>();
 
-
-    private boolean full = false;
-
-    public void CreateHero(String name, String superheroName, String superPowers, int creationYear, int strength) {
-        for (int i = 0; i < Superheroes.length; i++) {
-            if (Superheroes[i] == null){
-                Superheroes[i] = new Superhero(name, superheroName, superPowers, creationYear, strength);
-                break;
-            }
-            full = true;
-        }
+    public void CreateHero(String name, boolean isHuman, String superheroName, String superPowers, int creationYear, int strength) {
+        Superheroes.add(new Superhero(name, isHuman, superheroName, superPowers, creationYear, strength));
     }
 
     public void PrintHeroes() {
-        for (int i = 0; i < Superheroes.length; i++) {
-            Superhero hero = Superheroes[i];
-            if (Superheroes[i] != null){
-                System.out.printf("Helt nr %d: \n" +
-                                "Navn: %s \n" +
-                                "Superheltenavn: %s \n" +
-                                "Superkræfter: %s \n" +
-                                "Oprindelsesår: %d \n" +
-                                "Styrke: %d\n\n",
-                        (i + 1), hero.getName(), hero.getSuperheroName(), hero.getSuperPowers(), hero.getCreationYear(), hero.getStrength());
-            }
+        for (Superhero superhero : Superheroes) {
+            PrintHero(superhero);
         }
+    }
+
+    public void PrintHero(Superhero hero){
+        System.out.printf("Helt nr %d: \n" +
+                        "Navn: %s \n" +
+                        "Superheltenavn: %s \n" +
+                        "Er menneske: %s" +
+                        "Superkræfter: %s \n" +
+                        "Oprindelsesår: %d \n" +
+                        "Styrke: %d\n\n",
+                (Superheroes.indexOf(hero) + 1), hero.getName(), hero.getSuperheroName(), hero.isHuman(), hero.getSuperPowers(), hero.getCreationYear(), hero.getStrength());
     }
 }
