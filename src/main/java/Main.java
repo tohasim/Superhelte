@@ -7,10 +7,14 @@ public class Main {
         boolean shouldRun = true;
         int menuItem;
 
+        superHeroDataBase.CreateHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        superHeroDataBase.CreateHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
+        superHeroDataBase.CreateHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
         while(shouldRun){
             System.out.println("Velkommen til superhelte maskinen! \n" +
                     "1: Opret Superhelt\n" +
                     "2: Vis alle superhelte\n" +
+                    "3: Søg efter superhelt\n" +
                     "9: Afslut");
             menuItem = keyboard.nextInt();
             keyboard.nextLine();
@@ -21,6 +25,9 @@ public class Main {
                 case 2:
                     superHeroDataBase.PrintHeroes();
                     break;
+                case 3:
+                    SuperSearch(superHeroDataBase, keyboard);
+                    break;
                 case 9:
                     System.out.println("Ok, hav en god dag");
                     shouldRun = false;
@@ -29,6 +36,19 @@ public class Main {
                     System.out.println("Ikke en valgmulighed");
             }
 
+        }
+    }
+
+    private static void SuperSearch(Database heroes, Scanner keyboard) {
+        Superhero match;
+        System.out.println("Hvad vil du gerne søge efter?");
+        String searchTerm = keyboard.nextLine();
+        match = heroes.SearchSuperhero(searchTerm);
+        if (match != null){
+            System.out.println("Jeg fandt denne helt:");
+            heroes.PrintHero(match);
+        }else{
+            System.out.println("Jeg fandt desværre ingen helt med det givne navn");
         }
     }
 
