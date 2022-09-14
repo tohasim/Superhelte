@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class Superhero {
+    boolean human;
     private String name;
     private String superheroName = "Unkown";
     private String superPowers;
@@ -32,5 +33,13 @@ public class Superhero {
 
     public int getStrength() {
         return Strength;
+    }
+
+    public String isHuman(){
+        if (this.human){
+            return "ja";
+        }else{
+            return "nej";
+        }
     }
 }

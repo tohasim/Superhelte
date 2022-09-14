@@ -33,20 +33,21 @@ public class Main {
     }
 
     private static void CreateSuperhero(Database heroes, Scanner keyboard) {
-        if (heroes.isFull()){
-            System.out.println("Database full");
-            return;
-        }
+        boolean answered = false;
         String superheroName = null;
-        String hasSuperName;
+        String hasSuperName = "";
         String superPowers;
         int Strength;
         String name;
         int creationYear;
         System.out.println("Hvad hedder din superhelt?");
         name = keyboard.nextLine();
-        System.out.println("Har din superhelt et superhelte navn? (j/n)");
-        hasSuperName = keyboard.nextLine();
+        while(!answered){
+            System.out.println("Har din superhelt et superhelte navn? (j/n)");
+            hasSuperName = keyboard.nextLine();
+            if (hasSuperName.equals("j")) {
+            }
+        }
         if (hasSuperName.equals("j")){
             System.out.println("Hvad er  din superhelt's superheltenavn?");
             superheroName = keyboard.nextLine();
@@ -59,8 +60,6 @@ public class Main {
         System.out.println("Hvor stærk er din superhelt?");
         Strength = keyboard.nextInt();
         keyboard.nextLine();
-
-
         heroes.CreateHero(name, superheroName, superPowers, creationYear, Strength);
     }
 }

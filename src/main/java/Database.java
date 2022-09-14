@@ -28,8 +28,4 @@ public class Database {
             }
         }
     }
-
-    public boolean isFull() {
-        return full;
-    }
 }
