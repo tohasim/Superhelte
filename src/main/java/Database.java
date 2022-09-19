@@ -24,16 +24,20 @@ public class Database {
                 (Superheroes.indexOf(hero) + 1), hero.getName(), hero.getSuperheroName(), hero.isHuman(), hero.getSuperPowers(), hero.getCreationYear(), hero.getStrength());
     }
 
-    public Superhero SearchSuperhero(String searchTerm){
-        ArrayList<Superhero> matches = new ArrayList<>(1);
+    public ArrayList<Superhero> SearchSuperhero(String searchTerm){
+        ArrayList<Superhero> matches = new ArrayList<>();
         for (Superhero superhero : Superheroes) {
-            if (superhero.getName().toLowerCase().contains(searchTerm.toLowerCase())){
+            if (superhero.getSuperheroName().toLowerCase().contains(searchTerm.toLowerCase()) || superhero.getName().toLowerCase().contains(searchTerm.toLowerCase())){
                 matches.add(superhero);
             }
         }
         if (matches.isEmpty()){
             return null;
         }
-        return matches.get(0);
+        return matches;
+    }
+
+    public void EditHero() {
+
     }
 }

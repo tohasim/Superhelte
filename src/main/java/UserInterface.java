@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-    Database superHeroDataBase;
-    Scanner keyboard;
+    private Database superHeroDataBase;
+    private Scanner keyboard;
 
     public UserInterface() {
         this.superHeroDataBase = new Database();
@@ -12,15 +13,14 @@ public class UserInterface {
     public void StartProgram() {
         boolean shouldRun = true;
         int menuItem;
+        CreateTestData();
 
-        superHeroDataBase.CreateHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
-        superHeroDataBase.CreateHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
-        superHeroDataBase.CreateHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
         while (shouldRun) {
             System.out.println("Velkommen til superhelte maskinen! \n" +
                     "1: Opret Superhelt\n" +
                     "2: Vis alle superhelte\n" +
                     "3: Søg efter superhelt\n" +
+                    "4: Redigér superhelt\n" +
                     "9: Afslut");
             menuItem = keyboard.nextInt();
             keyboard.nextLine();
@@ -34,6 +34,9 @@ public class UserInterface {
                 case 3:
                     SuperSearch(superHeroDataBase, keyboard);
                     break;
+                case 4:
+                    EditHero();
+                    break;
                 case 9:
                     System.out.println("Ok, hav en god dag");
                     shouldRun = false;
@@ -41,18 +44,77 @@ public class UserInterface {
                 default:
                     System.out.println("Ikke en valgmulighed");
             }
-
         }
     }
 
+    private void EditHero() {
+        System.out.println("Vælg hvilken superhelt du gerne vil redigere: ");
+        superHeroDataBase.PrintHeroes();
+        int indexHeroToEdit = keyboard.nextInt();
+        Superhero heroToEdit = superHeroDataBase.Superheroes.get(indexHeroToEdit - 1);
+        System.out.println("Hvad vil du gerne redigere?");
+        System.out.printf("1: Navn \n" +
+                "2: Menneskestatus \n" +
+                "3: Superheltenavn \n" +
+                "4: Superkræfter \n" +
+                "5: Oprindelsesår \n" +
+                "6: Styrke\n");
+        int menuItem = keyboard.nextInt();
+        keyboard.nextLine();
+        System.out.println("Ok, hvad vil du gerne ændre det til?");
+        String change = keyboard.nextLine();
+        switch (menuItem) {
+            case 1:
+                heroToEdit.setName(change);
+                break;
+            case 2:
+                if (change.equals("j"))
+                    heroToEdit.setHuman(true);
+                else if (change.equals("n")) {
+                    heroToEdit.setHuman(false);
+                }
+                break;
+            case 3:
+                heroToEdit.setSuperheroName(change);
+                break;
+            case 4:
+                heroToEdit.setSuperPowers(change);
+                break;
+            case 5:
+                heroToEdit.setCreationYear(Integer.parseInt(change));
+                break;
+            case 6:
+                heroToEdit.setStrength(Integer.parseInt(change));
+                break;
+            default:
+                System.out.println("Ikke en mulighed");
+        }
+        System.out.println("Ok, ændringen er sket, din helt ser nu sådan ud: ");
+        superHeroDataBase.PrintHero(heroToEdit);
+    }
+
+    private void CreateTestData() {
+        superHeroDataBase.CreateHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        superHeroDataBase.CreateHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
+        superHeroDataBase.CreateHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
+        superHeroDataBase.CreateHero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
+    }
+
     private static void SuperSearch(Database heroes, Scanner keyboard) {
-        Superhero match;
+        ArrayList<Superhero> match;
         System.out.println("Hvad vil du gerne søge efter?");
         String searchTerm = keyboard.nextLine();
         match = heroes.SearchSuperhero(searchTerm);
         if (match != null){
-            System.out.println("Jeg fandt denne helt:");
-            heroes.PrintHero(match);
+            if (match.size() == 1){
+                System.out.println("Jeg fandt denne helt:");
+                heroes.PrintHero(match.get(0));
+            }else {
+                System.out.println("Jeg fandt følgende helte:");
+                for (Superhero superhero : match) {
+                    heroes.PrintHero(superhero);
+                }
+            }
         }else{
             System.out.println("Jeg fandt desværre ingen helt med det givne navn");
         }
