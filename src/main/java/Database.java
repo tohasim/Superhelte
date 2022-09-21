@@ -27,7 +27,7 @@ public class Database {
     public ArrayList<Superhero> SearchSuperhero(String searchTerm){
         ArrayList<Superhero> matches = new ArrayList<>();
         for (Superhero superhero : Superheroes) {
-            if (superhero.getSuperheroName().toLowerCase().contains(searchTerm.toLowerCase()) || superhero.getName().toLowerCase().contains(searchTerm.toLowerCase())){
+            if (superhero.getSuperheroName().toLowerCase().contains(searchTerm.toLowerCase().trim()) || superhero.getName().toLowerCase().contains(searchTerm.toLowerCase().trim())){
                 matches.add(superhero);
             }
         }

@@ -41,6 +41,15 @@ class DatabaseTests {
     }
 
     @Test
+    void searchSuperheroZeroResults() {
+        //Act
+        ArrayList<Superhero> resultList = db.SearchSuperhero("IngenHeltMedDetteNavn");
+        //Assert
+        assertNull(resultList);
+    }
+
+
+    @Test
     void searchSuperheroOneResult() {
         //Arrange
         int expectedSearchSize = 1;
@@ -51,10 +60,30 @@ class DatabaseTests {
     }
 
     @Test
-    void searchSuperheroZeroResults() {
+    void searchSuperheroMultipleResults() {
+        //Arrange
+        int expectedSearchSize = 2;
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("ZeroResults");
+        ArrayList<Superhero> resultList = db.SearchSuperhero("man");
         //Assert
-        assertNull(resultList);
+        assertEquals(resultList.size(), expectedSearchSize);
+    }
+    @Test
+    void searchSuperheroCaseSens() {
+        //Arrange
+        int expectedSearchSize = 1;
+        //Act
+        ArrayList<Superhero> resultList = db.SearchSuperhero("suPERMan");
+        //Assert
+        assertEquals(resultList.size(), expectedSearchSize);
+    }
+    @Test
+    void searchSuperheroWhiteSpace() {
+        //Arrange
+        int expectedSearchSize = 1;
+        //Act
+        ArrayList<Superhero> resultList = db.SearchSuperhero("    SuperMan    ");
+        //Assert
+        assertEquals(resultList.size(), expectedSearchSize);
     }
 }
