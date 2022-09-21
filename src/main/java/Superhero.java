@@ -1,7 +1,7 @@
 public class Superhero {
     private boolean human;
     private String name;
-    private String superheroName = "Unkown";
+    private String superheroName = "Unknown";
     private String superPowers;
     private int creationYear, Strength;
 
