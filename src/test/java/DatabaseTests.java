@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseTests {
@@ -10,42 +12,49 @@ class DatabaseTests {
     @BeforeEach
     void setUp() {
         db = new Database();
+        db.CreateTestData();
     }
 
     @Test
     void createHero() {
         //Arrange
-        String expectedName = "TestNavn";
-        String expectedHumanStatus = "ja";
-        String expectedHeroName = "Unknown";
-        String expectedSuperPower = "Testkræfter";
-        int expectedCreationYear = 123;
-        int expectedStrength = 456;
+        int expectedSize = 5;
 
         //Act
-        db.CreateHero("TestNavn", true, "", "Testkræfter", 123, 456);
+        db.CreateHero("TestNavn2", true, "", "Testkræfter2", 123, 456);
 
         //Assert
-        assertSame(db.Superheroes.get(0).getName(), expectedName);
-        assertSame(db.Superheroes.get(0).isHuman(), expectedHumanStatus);
-        assertSame(db.Superheroes.get(0).getSuperheroName(), expectedHeroName);
-        assertSame(db.Superheroes.get(0).getSuperPowers(), expectedSuperPower);
-        assertEquals(db.Superheroes.get(0).getCreationYear(), expectedCreationYear);
-        assertEquals(db.Superheroes.get(0).getStrength(), expectedStrength);
-        assertEquals(1, db.Superheroes.size());
+        assertEquals(expectedSize, db.Superheroes.size());
     }
 
     @Test
-    void searchSuperhero() {
-        //Arrange
+    void createTestData(){
+        // Arrange
+        int expectedSize = 8;
+
         //Act
+        db.CreateTestData();
+
         //Assert
+
+        assertEquals(expectedSize, db.Superheroes.size());
     }
 
     @Test
-    void editHero() {
+    void searchSuperheroOneResult() {
         //Arrange
+        int expectedSearchSize = 1;
         //Act
+        ArrayList<Superhero> resultList = db.SearchSuperhero("Maeve");
         //Assert
+        assertEquals(resultList.size(), expectedSearchSize);
+    }
+
+    @Test
+    void searchSuperheroZeroResults() {
+        //Act
+        ArrayList<Superhero> resultList = db.SearchSuperhero("ZeroResults");
+        //Assert
+        assertNull(resultList);
     }
 }

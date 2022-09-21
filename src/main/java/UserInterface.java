@@ -12,7 +12,7 @@ public class UserInterface {
     }
 
     public void StartProgram() {
-        CreateTestData();
+        superHeroDataBase.CreateTestData();
         MainLoop();
     }
 
@@ -34,13 +34,13 @@ public class UserInterface {
             keyboard.nextLine();
             switch (menuItem) {
                 case 1:
-                    CreateSuperhero(superHeroDataBase, keyboard);
+                    CreateSuperhero();
                     break;
                 case 2:
                     superHeroDataBase.PrintHeroes();
                     break;
                 case 3:
-                    SuperSearch(superHeroDataBase, keyboard);
+                    SuperSearch();
                     break;
                 case 4:
                     EditHero();
@@ -157,26 +157,21 @@ public class UserInterface {
         superHeroDataBase.PrintHero(heroToEdit);
     }
 
-    private void CreateTestData() {
-        superHeroDataBase.CreateHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
-        superHeroDataBase.CreateHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
-        superHeroDataBase.CreateHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
-        superHeroDataBase.CreateHero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
-    }
 
-    private void SuperSearch(Database heroes, Scanner keyboard) {
+
+    private void SuperSearch() {
         ArrayList<Superhero> match;
         System.out.println("Hvad vil du gerne søge efter?");
         String searchTerm = keyboard.nextLine();
-        match = heroes.SearchSuperhero(searchTerm);
+        match = superHeroDataBase.SearchSuperhero(searchTerm);
         if (match != null){
             if (match.size() == 1){
                 System.out.println("Jeg fandt denne helt:");
-                heroes.PrintHero(match.get(0));
+                superHeroDataBase.PrintHero(match.get(0));
             }else {
                 System.out.println("Jeg fandt følgende helte:");
                 for (Superhero superhero : match) {
-                    heroes.PrintHero(superhero);
+                    superHeroDataBase.PrintHero(superhero);
                 }
             }
         }else{
@@ -184,7 +179,7 @@ public class UserInterface {
         }
     }
 
-    private void CreateSuperhero(Database heroes, Scanner keyboard) {
+    private void CreateSuperhero() {
         boolean answered = false;
         boolean isHuman = false;
         String superheroName = "";
@@ -253,6 +248,6 @@ public class UserInterface {
             }
             keyboard.nextLine();
         }
-        heroes.CreateHero(name, isHuman, superheroName, superPowers, creationYear, Strength);
+        superHeroDataBase.CreateHero(name, isHuman, superheroName, superPowers, creationYear, Strength);
     }
 }
