@@ -1,0 +1,17 @@
+Userstory Notes
+Userstory #10 (Gem/save):
+	-Hvis vi venter med at gemme data lokalt til der trykkes "Afslut", mister man arbejdet man har lavet hvis programmet crasher
+Userstory #11 (Gem kun hvis ændringer):
+	-Kun manuel test hvor vi checker hvornår filen sidst er ændret
+Userstory #12 (Sorter efter navn):
+	-"Default sortering"
+	-Vi skal finde ud af at vælge den rigtige attribut til sortering
+Userstory #13 (Sorter efter vilkårlig attribut):
+	-3 løsning forslag:
+		1: brugeren spørges hver gang efter sortingsindstilling
+		2: brugeren har adgang til indstillingsmenu
+		3: Brugeren vises som udganspunkt "Default" Hvorefter listen kan sorteres som ønsket
+	-Default værdien skal kun bruges indtil den ændres
+Userstory #14 (Sorter efter primær og sekundær):
+	-Hvordan ville vi gøre det?	
+	-Håndter at brugeren ikke kan sortere efter samme attribut som primær og sekundær
