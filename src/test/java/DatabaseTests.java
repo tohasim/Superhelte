@@ -12,7 +12,7 @@ class DatabaseTests {
     @BeforeEach
     void setUp() {
         db = new Database();
-        db.CreateTestData();
+        db.createTestData();
     }
 
     @Test
@@ -33,7 +33,7 @@ class DatabaseTests {
         int expectedSize = 8;
 
         //Act
-        db.CreateTestData();
+        db.createTestData();
 
         //Assert
 
@@ -43,7 +43,7 @@ class DatabaseTests {
     @Test
     void searchSuperheroZeroResults() {
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("IngenHeltMedDetteNavn");
+        ArrayList<Superhero> resultList = db.searchSuperhero("IngenHeltMedDetteNavn");
         //Assert
         assertNull(resultList);
     }
@@ -54,7 +54,7 @@ class DatabaseTests {
         //Arrange
         int expectedSearchSize = 1;
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("Maeve");
+        ArrayList<Superhero> resultList = db.searchSuperhero("Maeve");
         //Assert
         assertEquals(resultList.size(), expectedSearchSize);
     }
@@ -64,7 +64,7 @@ class DatabaseTests {
         //Arrange
         int expectedSearchSize = 2;
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("man");
+        ArrayList<Superhero> resultList = db.searchSuperhero("man");
         //Assert
         assertEquals(resultList.size(), expectedSearchSize);
     }
@@ -73,7 +73,7 @@ class DatabaseTests {
         //Arrange
         int expectedSearchSize = 1;
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("suPERMan");
+        ArrayList<Superhero> resultList = db.searchSuperhero("suPERMan");
         //Assert
         assertEquals(resultList.size(), expectedSearchSize);
     }
@@ -82,7 +82,7 @@ class DatabaseTests {
         //Arrange
         int expectedSearchSize = 1;
         //Act
-        ArrayList<Superhero> resultList = db.SearchSuperhero("    SuperMan    ");
+        ArrayList<Superhero> resultList = db.searchSuperhero("    SuperMan    ");
         //Assert
         assertEquals(resultList.size(), expectedSearchSize);
     }
