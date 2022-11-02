@@ -18,7 +18,8 @@ public class Controller {
     }
     public void startProgram() throws FileNotFoundException {
         createLoadedHeroes();
-        superHeroDataBase.createTestData();
+        if (superHeroDataBase.superheroes.isEmpty())
+            superHeroDataBase.createTestData();
         mainLoop();
     }
 
