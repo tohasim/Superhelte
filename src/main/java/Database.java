@@ -10,6 +10,10 @@ public class Database {
         superheroes.add(heroToAdd);
     }
 
+    public void deleteHero(Superhero heroToDelete){
+        superheroes.remove(heroToDelete);
+    }
+
 
     public ArrayList<Superhero> searchSuperhero(String searchTerm){
         ArrayList<Superhero> matches = new ArrayList<>();

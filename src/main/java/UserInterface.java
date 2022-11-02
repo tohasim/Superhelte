@@ -11,6 +11,7 @@ public class UserInterface {
                 "2: Vis alle superhelte\n" +
                 "3: Søg efter superhelt\n" +
                 "4: Redigér superhelt\n" +
+                "5: Slet helt\n" +
                 "9: Afslut");
     }
 

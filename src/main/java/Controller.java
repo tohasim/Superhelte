@@ -51,6 +51,9 @@ public class Controller {
                 case 4:
                     editHero();
                     break;
+                case 5:
+                    deleteHero();
+                    break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
                     fileHandler.saveHeroes(superHeroDataBase.superheroes);
@@ -61,6 +64,31 @@ public class Controller {
             }
         }
     }
+
+    private void deleteHero() {
+        boolean heroChosen = false;
+        int indexHeroToEdit = 0;
+        Superhero heroToDelete = null;
+        while(!heroChosen){
+            ui.signalMessage(SignalEnum.CHOOSE_HERO);
+            printHeroes();
+            try{
+                indexHeroToEdit = keyboard.nextInt();
+            }catch (InputMismatchException IME){
+                ui.signalMessage(SignalEnum.INCORRECT_INPUT);
+            }
+            keyboard.nextLine();
+            try{
+                heroToDelete = superHeroDataBase.superheroes.get(indexHeroToEdit - 1);
+                heroChosen = true;
+            } catch (IndexOutOfBoundsException IOBE){
+                ui.chooseNumberInRange(superHeroDataBase.superheroes.size());
+                heroChosen = false;
+            }
+        }
+        superHeroDataBase.deleteHero(heroToDelete);
+    }
+
     public void printHeroes() {
         for (Superhero hero : superHeroDataBase.superheroes) {
             ui.printHero(hero ,superHeroDataBase.superheroes.indexOf(hero));
