@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Superhero {
-    private boolean human;
+    private Boolean human;
     private String name;
     private String superheroName = "Unknown";
     private String superPowers;
-    private int creationYear, Strength;
+    private Integer creationYear, strength;
 
     public Superhero(String name, boolean isHuman, String superheroName, String superPowers, int creationYear, int strength) {
         this.name = name;
@@ -12,7 +15,7 @@ public class Superhero {
             this.superheroName = superheroName;
         this.superPowers = superPowers;
         this.creationYear = creationYear;
-        Strength = strength;
+        this.strength = strength;
     }
     public String getName() {
         return name;
@@ -31,7 +34,7 @@ public class Superhero {
     }
 
     public int getStrength() {
-        return Strength;
+        return strength;
     }
 
     public void setHuman(boolean human) {
@@ -55,7 +58,7 @@ public class Superhero {
     }
 
     public void setStrength(int strength) {
-        Strength = strength;
+        this.strength = strength;
     }
 
     public String isHuman(){
@@ -64,5 +67,15 @@ public class Superhero {
         }else{
             return "nej";
         }
+    }
+
+    public ArrayList<String> getAttributes(){
+        return new ArrayList<>(List.of(
+                name,
+                superheroName,
+                human.toString(),
+                superPowers,
+                creationYear.toString(),
+                strength.toString()));
     }
 }

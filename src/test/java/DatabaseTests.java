@@ -24,7 +24,7 @@ class DatabaseTests {
         db.CreateHero("TestNavn2", true, "", "Testkræfter2", 123, 456);
 
         //Assert
-        assertEquals(expectedSize, db.Superheroes.size());
+        assertEquals(expectedSize, db.superheroes.size());
     }
 
     @Test
@@ -37,7 +37,7 @@ class DatabaseTests {
 
         //Assert
 
-        assertEquals(expectedSize, db.Superheroes.size());
+        assertEquals(expectedSize, db.superheroes.size());
     }
 
     @Test

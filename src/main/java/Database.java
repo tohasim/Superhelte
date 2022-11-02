@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 
 public class Database {
-    ArrayList<Superhero> Superheroes = new ArrayList<>();
+    ArrayList<Superhero> superheroes = new ArrayList<>();
 
     public void CreateHero(String name, boolean isHuman, String superheroName, String superPowers, int creationYear, int strength) {
-        Superheroes.add(new Superhero(name, isHuman, superheroName, superPowers, creationYear, strength));
+        superheroes.add(new Superhero(name, isHuman, superheroName, superPowers, creationYear, strength));
+    }
+    public void CreateHero(Superhero heroToAdd) {
+        superheroes.add(heroToAdd);
     }
 
 
     public ArrayList<Superhero> searchSuperhero(String searchTerm){
         ArrayList<Superhero> matches = new ArrayList<>();
-        for (Superhero superhero : Superheroes) {
+        for (Superhero superhero : superheroes) {
             if (superhero.getSuperheroName().toLowerCase().contains(searchTerm.toLowerCase().trim()) || superhero.getName().toLowerCase().contains(searchTerm.toLowerCase().trim())){
                 matches.add(superhero);
             }

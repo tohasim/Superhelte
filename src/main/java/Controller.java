@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -6,18 +7,26 @@ public class Controller {
     private Database superHeroDataBase;
     private Scanner keyboard;
     UserInterface ui;
+    FileHandler fileHandler;
 
-    public Controller() {
+    public Controller() throws FileNotFoundException {
         this.superHeroDataBase = new Database();
         this.keyboard = new Scanner(System.in);
         this.ui = new UserInterface();
+        fileHandler = new FileHandler();
     }
-    public void startProgram() {
-        superHeroDataBase.createTestData();
+    public void startProgram() throws FileNotFoundException {
+        createLoadedHeroes();
         mainLoop();
     }
 
-    private void mainLoop() {
+    private void createLoadedHeroes() throws FileNotFoundException {
+        for (Superhero superhero : fileHandler.loadHeroes()) {
+            superHeroDataBase.CreateHero(superhero);
+        }
+    }
+
+    private void mainLoop() throws FileNotFoundException {
         boolean shouldRun = true;
         int menuItem = 0;
         while (shouldRun) {
@@ -43,6 +52,7 @@ public class Controller {
                     break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
+                    fileHandler.saveHeroes(superHeroDataBase.superheroes);
                     shouldRun = false;
                     break;
                 default:
@@ -51,8 +61,8 @@ public class Controller {
         }
     }
     public void printHeroes() {
-        for (Superhero hero : superHeroDataBase.Superheroes) {
-            ui.printHero(hero ,superHeroDataBase.Superheroes.indexOf(hero));
+        for (Superhero hero : superHeroDataBase.superheroes) {
+            ui.printHero(hero ,superHeroDataBase.superheroes.indexOf(hero));
         }
     }
 
@@ -72,10 +82,10 @@ public class Controller {
             }
             keyboard.nextLine();
             try{
-                heroToEdit = superHeroDataBase.Superheroes.get(indexHeroToEdit - 1);
+                heroToEdit = superHeroDataBase.superheroes.get(indexHeroToEdit - 1);
                 heroChosen = true;
             } catch (IndexOutOfBoundsException IOBE){
-                ui.chooseNumberInRange(superHeroDataBase.Superheroes.size());
+                ui.chooseNumberInRange(superHeroDataBase.superheroes.size());
                 heroChosen = false;
             }
         }
@@ -151,7 +161,7 @@ public class Controller {
             default:
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
         }
-        ui.confirmChange(heroToEdit, superHeroDataBase.Superheroes.indexOf(heroToEdit));
+        ui.confirmChange(heroToEdit, superHeroDataBase.superheroes.indexOf(heroToEdit));
     }
     private void superSearch() {
         ArrayList<Superhero> match;
@@ -161,11 +171,11 @@ public class Controller {
         if (match != null){
             if (match.size() == 1){
                 ui.signalMessage(SignalEnum.HERO_FOUND);
-                ui.printHero(match.get(0), superHeroDataBase.Superheroes.indexOf(match.get(0)));
+                ui.printHero(match.get(0), superHeroDataBase.superheroes.indexOf(match.get(0)));
             }else {
                 ui.signalMessage(SignalEnum.HEROES_FOUND);
                 for (Superhero superhero : match) {
-                    ui.printHero(superhero, superHeroDataBase.Superheroes.indexOf(superhero));
+                    ui.printHero(superhero, superHeroDataBase.superheroes.indexOf(superhero));
                 }
             }
         }else{
