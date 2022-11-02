@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Controller {
     private Database superHeroDataBase;
     private Scanner keyboard;
+    private boolean unsavedChanges = false;
     UserInterface ui;
     FileHandler fileHandler;
 
@@ -16,14 +17,14 @@ public class Controller {
         fileHandler = new FileHandler();
     }
     public void startProgram() throws FileNotFoundException {
-        //createLoadedHeroes();
+        createLoadedHeroes();
         superHeroDataBase.createTestData();
         mainLoop();
     }
 
     private void createLoadedHeroes() throws FileNotFoundException {
         for (Superhero superhero : fileHandler.loadHeroes()) {
-            superHeroDataBase.CreateHero(superhero);
+            superHeroDataBase.createHero(superhero);
         }
     }
 
@@ -56,7 +57,9 @@ public class Controller {
                     break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
-                    fileHandler.saveHeroes(superHeroDataBase.superheroes);
+                    if (unsavedChanges) {
+                        fileHandler.saveHeroes(superHeroDataBase.superheroes);
+                    }
                     shouldRun = false;
                     break;
                 default:
@@ -87,6 +90,7 @@ public class Controller {
             }
         }
         superHeroDataBase.deleteHero(heroToDelete);
+        unsavedChanges = true;
     }
 
     public void printHeroes() {
@@ -191,6 +195,7 @@ public class Controller {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
         }
         ui.confirmChange(heroToEdit, superHeroDataBase.superheroes.indexOf(heroToEdit));
+        unsavedChanges = true;
     }
     private void superSearch() {
         ArrayList<Superhero> match;
@@ -279,6 +284,7 @@ public class Controller {
             }
             keyboard.nextLine();
         }
-        superHeroDataBase.CreateHero(name, isHuman, superheroName, superPowers, creationYear, Strength);
+        superHeroDataBase.createHero(name, isHuman, superheroName, superPowers, creationYear, Strength);
+        unsavedChanges = true;
     }
 }

@@ -21,7 +21,7 @@ class DatabaseTests {
         int expectedSize = 5;
 
         //Act
-        db.CreateHero("TestNavn2", true, "", "Testkræfter2", 123, 456);
+        db.createHero("TestNavn2", true, "", "Testkræfter2", 123, 456);
 
         //Assert
         assertEquals(expectedSize, db.superheroes.size());
