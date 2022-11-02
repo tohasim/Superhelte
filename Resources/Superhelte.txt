@@ -1,4 +1,0 @@
-Clark Kent; false; false; Flyve, Røngtensyn, laserøjne; 1963; 9000
-Bruce Wayne; true; false; Rig; 1964; 1337
-Homelander; true; false; Flyve, Røngtensyn, Laserøjne; 2020; 8999
-Queen Maeve; true; false; Superstyke, Plot armor; 2020; 7000

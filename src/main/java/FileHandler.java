@@ -9,7 +9,7 @@ public class FileHandler {
     PrintStream output;
     Scanner input;
 
-    public FileHandler() throws FileNotFoundException {
+    public FileHandler() {
         file = new File("Resources/Superhelte.txt");
     }
 

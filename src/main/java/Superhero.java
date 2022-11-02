@@ -72,8 +72,8 @@ public class Superhero {
     public ArrayList<String> getAttributes(){
         return new ArrayList<>(List.of(
                 name,
-                superheroName,
                 human.toString(),
+                superheroName,
                 superPowers,
                 creationYear.toString(),
                 strength.toString()));

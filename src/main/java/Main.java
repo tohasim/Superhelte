@@ -5,5 +5,4 @@ public class Main {
         Controller program = new Controller();
         program.startProgram();
     }
-
 }
