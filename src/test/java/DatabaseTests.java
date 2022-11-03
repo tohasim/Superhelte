@@ -1,3 +1,5 @@
+import FileAndDatabase.Database;
+import MainClasses.Superhero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

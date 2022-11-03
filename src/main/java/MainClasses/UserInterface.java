@@ -1,4 +1,6 @@
+package MainClasses;
 
+import Enums.SignalEnum;
 
 public class UserInterface {
 

@@ -2,4 +2,3 @@ Clark Kent; false; Superman; Flyve, Røngtensyn, laserøjne; 1963; 9000
 Bruce Wayne; true; Batman; Rig; 1964; 1337
 Homelander; true; Unknown; Flyve, Røngtensyn, Laserøjne; 2020; 8999
 Queen Maeve; true; Unknown; Superstyke, Plot armor; 2020; 7000
-dsfg; true; Unknown; wdef; 456; 5467

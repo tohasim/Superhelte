@@ -1,3 +1,9 @@
+package MainClasses;
+
+import Enums.SignalEnum;
+import FileAndDatabase.Database;
+import FileAndDatabase.FileHandler;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -18,7 +24,7 @@ public class Controller {
     }
     public void startProgram() throws FileNotFoundException {
         createLoadedHeroes();
-        if (superHeroDataBase.superheroes.isEmpty())
+        if (superHeroDataBase.getSuperheroes().isEmpty())
             superHeroDataBase.createTestData();
         mainLoop();
     }
@@ -59,7 +65,7 @@ public class Controller {
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
                     if (unsavedChanges) {
-                        fileHandler.saveHeroes(superHeroDataBase.superheroes);
+                        fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
                     }
                     shouldRun = false;
                     break;
@@ -83,10 +89,10 @@ public class Controller {
             }
             keyboard.nextLine();
             try{
-                heroToDelete = superHeroDataBase.superheroes.get(indexHeroToEdit - 1);
+                heroToDelete = superHeroDataBase.getSuperheroes().get(indexHeroToEdit - 1);
                 heroChosen = true;
             } catch (IndexOutOfBoundsException IOBE){
-                ui.chooseNumberInRange(superHeroDataBase.superheroes.size());
+                ui.chooseNumberInRange(superHeroDataBase.getSuperheroes().size());
                 heroChosen = false;
             }
         }
@@ -95,8 +101,8 @@ public class Controller {
     }
 
     public void printHeroes() {
-        for (Superhero hero : superHeroDataBase.superheroes) {
-            ui.printHero(hero ,superHeroDataBase.superheroes.indexOf(hero));
+        for (Superhero hero : superHeroDataBase.getSuperheroes()) {
+            ui.printHero(hero ,superHeroDataBase.getSuperheroes().indexOf(hero));
         }
     }
 
@@ -116,10 +122,10 @@ public class Controller {
             }
             keyboard.nextLine();
             try{
-                heroToEdit = superHeroDataBase.superheroes.get(indexHeroToEdit - 1);
+                heroToEdit = superHeroDataBase.getSuperheroes().get(indexHeroToEdit - 1);
                 heroChosen = true;
             } catch (IndexOutOfBoundsException IOBE){
-                ui.chooseNumberInRange(superHeroDataBase.superheroes.size());
+                ui.chooseNumberInRange(superHeroDataBase.getSuperheroes().size());
                 heroChosen = false;
             }
         }
@@ -195,7 +201,7 @@ public class Controller {
             default:
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
         }
-        ui.confirmChange(heroToEdit, superHeroDataBase.superheroes.indexOf(heroToEdit));
+        ui.confirmChange(heroToEdit, superHeroDataBase.getSuperheroes().indexOf(heroToEdit));
         unsavedChanges = true;
     }
     private void superSearch() {
@@ -206,11 +212,11 @@ public class Controller {
         if (match != null){
             if (match.size() == 1){
                 ui.signalMessage(SignalEnum.HERO_FOUND);
-                ui.printHero(match.get(0), superHeroDataBase.superheroes.indexOf(match.get(0)));
+                ui.printHero(match.get(0), superHeroDataBase.getSuperheroes().indexOf(match.get(0)));
             }else {
                 ui.signalMessage(SignalEnum.HEROES_FOUND);
                 for (Superhero superhero : match) {
-                    ui.printHero(superhero, superHeroDataBase.superheroes.indexOf(superhero));
+                    ui.printHero(superhero, superHeroDataBase.getSuperheroes().indexOf(superhero));
                 }
             }
         }else{

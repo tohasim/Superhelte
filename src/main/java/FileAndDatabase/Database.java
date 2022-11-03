@@ -1,7 +1,11 @@
+package FileAndDatabase;
+
+import MainClasses.Superhero;
+
 import java.util.ArrayList;
 
 public class Database {
-    ArrayList<Superhero> superheroes = new ArrayList<>();
+    private ArrayList<Superhero> superheroes = new ArrayList<>();
 
 
     public void createHero(String name, boolean isHuman, String superheroName, String superPowers, int creationYear, int strength) {
@@ -33,5 +37,9 @@ public class Database {
         createHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
         createHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
         createHero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
+    }
+
+    public ArrayList<Superhero> getSuperheroes() {
+        return superheroes;
     }
 }
