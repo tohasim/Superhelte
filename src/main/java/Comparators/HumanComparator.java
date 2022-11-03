@@ -9,6 +9,6 @@ public class HumanComparator implements Comparator<Superhero> {
 
     @Override
     public int compare(Superhero o1, Superhero o2) {
-        return o1.getName().compareTo(o2.getName());
+        return o1.isHuman().compareTo(o2.isHuman());
     }
 }
