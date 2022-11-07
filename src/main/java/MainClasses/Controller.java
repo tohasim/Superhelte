@@ -86,6 +86,7 @@ public class Controller {
                     break;
             }
         }
+        unsavedChanges = true;
     }
 
     private void createLoadedHeroes() throws FileNotFoundException {
