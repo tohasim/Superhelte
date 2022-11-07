@@ -2,4 +2,5 @@ Tony Stark; true; Superman; Flyve, Røngtensyn, laserøjne, rig; 1963; 9000
 Bruce Wayne; true; Batman; Rig; 1964; 1337
 Homelander; true; Unknown; Flyve, Røngtensyn, Laserøjne; 2020; 8999
 Queen Maeve; true; Unknown; Superstyke, Plot armor; 2020; 7000
-Tony Stark; true; IronMan; flyve, skyder laser; 1964; 45454
+Hal Jordan; true; Green Lantern; flyve, skabe objekter ud fra grøndt lys; 1940; 4545
+John Jones; false; Martian Manhunter; flyve, skifte form, læse tanker; 1955; 5858

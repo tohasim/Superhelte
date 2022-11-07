@@ -49,7 +49,6 @@ public class Controller {
             switch (menuItem) {
                 case 1:
                     createSuperhero();
-                    unsavedChanges = false;
                     break;
                 case 2:
                     printHeroes();
@@ -59,21 +58,17 @@ public class Controller {
                     break;
                 case 4:
                     editHero();
-                    unsavedChanges = false;
                     break;
                 case 5:
                     deleteHero();
-                    unsavedChanges = false;
                     break;
                 case 6:
-                    System.out.println("Work in progress");
                     fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
-                    unsavedChanges = true;
+                    unsavedChanges = false;
                     break;
                 case 7:
-                    System.out.println("work in progress");
                     fileHandler.loadHeroes();
-                    unsavedChanges = true;
+                    unsavedChanges = false;
                     break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
