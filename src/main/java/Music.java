@@ -18,7 +18,7 @@ public class Music {
 
         }catch (Exception e){
             System.out.println("can not find music file \n" +
-                    "go to the Music class and change the file location on line 15");
+                    "go to the Music class and change the file location on line 9");
         }
     }
 
