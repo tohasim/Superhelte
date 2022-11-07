@@ -63,10 +63,13 @@ public class Controller {
                     deleteHero();
                     break;
                 case 6:
+                    System.out.println("work in progress");
+                    break;
+                case 7:
                     fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
                     unsavedChanges = false;
                     break;
-                case 7:
+                case 8:
                     fileHandler.loadHeroes();
                     unsavedChanges = false;
                     break;
