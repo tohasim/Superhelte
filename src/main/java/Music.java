@@ -6,7 +6,7 @@ public class Music {
 
     public void loadMusic(){
         //make sure file name and location is correct
-        File backgroundMusic = new File("Sound\\GameMusic.wav");
+        File backgroundMusic = new File("Sound\\Justice League.wav");
         playMusic(backgroundMusic);
     }
 
