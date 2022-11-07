@@ -62,6 +62,13 @@ public class Controller {
                 case 5:
                     deleteHero();
                     break;
+
+                case 6:
+                    System.out.println("Work in progress");
+                    break;
+                case 7:
+                    System.out.println("work in progress");
+                    break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
                     if (unsavedChanges) {
