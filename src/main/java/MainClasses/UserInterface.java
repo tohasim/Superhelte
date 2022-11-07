@@ -73,4 +73,16 @@ public class UserInterface {
         System.out.println("Ok, ændringen er sket, din helt ser nu sådan ud: ");
         printHero(heroToEdit, index);
     }
+
+    public void sortOptions(){
+        System.out.print("""
+                    Hvordan vil du gerne have dine superhelte sorteret?\s
+                    1: Efter skabelses år
+                    2: Efter hvis de er menneske
+                    3: Efter navn
+                    4: Efter styrke
+                    5: Efter superhelte navn
+                    9: Skal ikke sorteres
+                    """);
+    }
 }

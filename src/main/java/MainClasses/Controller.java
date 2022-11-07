@@ -1,5 +1,6 @@
 package MainClasses;
 
+import Comparators.*;
 import Enums.SignalEnum;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
@@ -15,6 +16,11 @@ public class Controller {
     private boolean unsavedChanges = false;
     UserInterface ui;
     FileHandler fileHandler;
+    CreationYearComparator yearComparator;
+    HumanComparator humanComparator;
+    NameComparator nameComparator;
+    StrengthComparator strengthComparator;
+    SuperheroNameComparator superheroNameComparator;
 
     public Controller() throws FileNotFoundException {
         this.superHeroDataBase = new Database();
@@ -22,11 +28,64 @@ public class Controller {
         this.ui = new UserInterface();
         fileHandler = new FileHandler();
     }
+
     public void startProgram() throws FileNotFoundException {
+        yearComparator = new CreationYearComparator();
+        humanComparator = new HumanComparator();
+        nameComparator = new NameComparator();
+        strengthComparator = new StrengthComparator();
+        superheroNameComparator = new SuperheroNameComparator();
+
         createLoadedHeroes();
         if (superHeroDataBase.getSuperheroes().isEmpty())
             superHeroDataBase.createTestData();
         mainLoop();
+    }
+
+    public void sortHeroes() {
+        ui.sortOptions();
+
+        boolean startSorter = true;
+        Scanner SH = new Scanner(System.in);
+
+        while (startSorter) {
+
+
+            int input = SH.nextInt();
+            switch (input) {
+                case 1:
+                    superHeroDataBase.getSuperheroes().sort(yearComparator);
+                    printHeroes();
+                    startSorter = false;
+                    break;
+                case 2:
+                    superHeroDataBase.getSuperheroes().sort(humanComparator);
+                    printHeroes();
+                    startSorter = false;
+                    break;
+                case 3:
+                    superHeroDataBase.getSuperheroes().sort(nameComparator);
+                    printHeroes();
+                    startSorter = false;
+                    break;
+                case 4:
+                    superHeroDataBase.getSuperheroes().sort(strengthComparator);
+                    printHeroes();
+                    startSorter = false;
+                    break;
+                case 5:
+                    superHeroDataBase.getSuperheroes().sort(superheroNameComparator);
+                    printHeroes();
+                    startSorter = false;
+                    break;
+                case 9:
+                    startSorter = false;
+                    break;
+                default:
+                    ui.signalMessage(SignalEnum.NOT_AN_OPTION);
+                    break;
+            }
+        }
     }
 
     private void createLoadedHeroes() throws FileNotFoundException {
@@ -40,9 +99,9 @@ public class Controller {
         int menuItem = 0;
         while (shouldRun) {
             ui.welcomeMessage();
-            try{
+            try {
                 menuItem = keyboard.nextInt();
-            }catch (InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
             }
             keyboard.nextLine();
@@ -64,6 +123,7 @@ public class Controller {
                     break;
                 case 6:
                     System.out.println("work in progress");
+                    sortHeroes();
                     break;
                 case 7:
                     fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
@@ -90,19 +150,19 @@ public class Controller {
         boolean heroChosen = false;
         int indexHeroToEdit = 0;
         Superhero heroToDelete = null;
-        while(!heroChosen){
+        while (!heroChosen) {
             ui.signalMessage(SignalEnum.CHOOSE_HERO);
             printHeroes();
-            try{
+            try {
                 indexHeroToEdit = keyboard.nextInt();
-            }catch (InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
             }
             keyboard.nextLine();
-            try{
+            try {
                 heroToDelete = superHeroDataBase.getSuperheroes().get(indexHeroToEdit - 1);
                 heroChosen = true;
-            } catch (IndexOutOfBoundsException IOBE){
+            } catch (IndexOutOfBoundsException IOBE) {
                 ui.chooseNumberInRange(superHeroDataBase.getSuperheroes().size());
                 heroChosen = false;
             }
@@ -113,29 +173,28 @@ public class Controller {
 
     public void printHeroes() {
         for (Superhero hero : superHeroDataBase.getSuperheroes()) {
-            ui.printHero(hero ,superHeroDataBase.getSuperheroes().indexOf(hero));
+            ui.printHero(hero, superHeroDataBase.getSuperheroes().indexOf(hero));
         }
     }
-
 
 
     private void editHero() {
         boolean heroChosen = false;
         int indexHeroToEdit = 0;
         Superhero heroToEdit = null;
-        while(!heroChosen){
+        while (!heroChosen) {
             ui.signalMessage(SignalEnum.CHOOSE_HERO);
             printHeroes();
-            try{
+            try {
                 indexHeroToEdit = keyboard.nextInt();
-            }catch (InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
             }
             keyboard.nextLine();
-            try{
+            try {
                 heroToEdit = superHeroDataBase.getSuperheroes().get(indexHeroToEdit - 1);
                 heroChosen = true;
-            } catch (IndexOutOfBoundsException IOBE){
+            } catch (IndexOutOfBoundsException IOBE) {
                 ui.chooseNumberInRange(superHeroDataBase.getSuperheroes().size());
                 heroChosen = false;
             }
@@ -143,13 +202,12 @@ public class Controller {
         ui.signalMessage(SignalEnum.CHOOSE_EDIT_OPTION);
         boolean attributeChosen = false;
         int menuItem = 0;
-        while(!attributeChosen){
+        while (!attributeChosen) {
             ui.printAttributeList();
-            try{
+            try {
                 menuItem = keyboard.nextInt();
                 attributeChosen = true;
-            }
-            catch(InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 attributeChosen = false;
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
             }
@@ -163,13 +221,13 @@ public class Controller {
                 break;
             case 2:
                 boolean changeSet = false;
-                while(!changeSet) {
-                    switch (change){
-                        case("j"):
+                while (!changeSet) {
+                    switch (change) {
+                        case ("j"):
                             heroToEdit.setHuman(true);
                             changeSet = true;
                             break;
-                        case("n"):
+                        case ("n"):
                             heroToEdit.setHuman(false);
                             changeSet = true;
                             break;
@@ -187,11 +245,11 @@ public class Controller {
                 break;
             case 5:
                 boolean intSet = false;
-                while(!intSet) {
+                while (!intSet) {
                     try {
                         heroToEdit.setCreationYear(Integer.parseInt(change));
                         intSet = true;
-                    } catch (InputMismatchException IME){
+                    } catch (InputMismatchException IME) {
                         ui.signalMessage(SignalEnum.INCORRECT_INPUT_INT);
                         intSet = false;
                     }
@@ -199,11 +257,11 @@ public class Controller {
                 break;
             case 6:
                 intSet = false;
-                while(!intSet) {
+                while (!intSet) {
                     try {
                         heroToEdit.setCreationYear(Integer.parseInt(change));
                         intSet = true;
-                    } catch (InputMismatchException IME){
+                    } catch (InputMismatchException IME) {
                         ui.signalMessage(SignalEnum.INCORRECT_INPUT_INT);
                         intSet = false;
                     }
@@ -215,25 +273,27 @@ public class Controller {
         ui.confirmChange(heroToEdit, superHeroDataBase.getSuperheroes().indexOf(heroToEdit));
         unsavedChanges = true;
     }
+
     private void superSearch() {
         ArrayList<Superhero> match;
         ui.signalMessage(SignalEnum.CHOOSE_SEARCH_OPTION);
         String searchTerm = keyboard.nextLine();
         match = superHeroDataBase.searchSuperhero(searchTerm);
-        if (match != null){
-            if (match.size() == 1){
+        if (match != null) {
+            if (match.size() == 1) {
                 ui.signalMessage(SignalEnum.HERO_FOUND);
                 ui.printHero(match.get(0), superHeroDataBase.getSuperheroes().indexOf(match.get(0)));
-            }else {
+            } else {
                 ui.signalMessage(SignalEnum.HEROES_FOUND);
                 for (Superhero superhero : match) {
                     ui.printHero(superhero, superHeroDataBase.getSuperheroes().indexOf(superhero));
                 }
             }
-        }else{
+        } else {
             ui.signalMessage(SignalEnum.NO_HEROES_FOUND);
         }
     }
+
     private void createSuperhero() {
         boolean answered = false;
         boolean isHuman = false;
@@ -245,7 +305,7 @@ public class Controller {
         int creationYear = 0;
         ui.signalMessage(SignalEnum.ASK_FOR_NAME);
         name = keyboard.nextLine();
-        while(!answered){
+        while (!answered) {
             ui.signalMessage(SignalEnum.ASK_IF_SUPERHERONAME);
             hasSuperName = keyboard.nextLine();
             if (hasSuperName.equals("j")) {
@@ -259,9 +319,9 @@ public class Controller {
             }
         }
         answered = false;
-        while(!answered){
+        while (!answered) {
             ui.signalMessage(SignalEnum.ASK_IF_HUMAN);
-            switch (keyboard.nextLine()){
+            switch (keyboard.nextLine()) {
                 case "j":
                     isHuman = true;
                     answered = true;
@@ -277,26 +337,24 @@ public class Controller {
         ui.signalMessage(SignalEnum.ASK_FOR_POWERS);
         superPowers = keyboard.nextLine();
         boolean intChosen = false;
-        while(!intChosen){
+        while (!intChosen) {
             ui.signalMessage(SignalEnum.ASK_FOR_CREATION_YEAR);
-            try{
+            try {
                 creationYear = keyboard.nextInt();
                 intChosen = true;
-            }
-            catch(InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT_YEAR);
                 intChosen = false;
             }
             keyboard.nextLine();
         }
         intChosen = false;
-        while(!intChosen){
+        while (!intChosen) {
             ui.signalMessage(SignalEnum.ASK_FOR_STRENGTH_LEVEL);
-            try{
+            try {
                 Strength = keyboard.nextInt();
                 intChosen = true;
-            }
-            catch(InputMismatchException IME){
+            } catch (InputMismatchException IME) {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT_STRENGTH);
                 intChosen = false;
             }
