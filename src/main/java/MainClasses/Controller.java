@@ -122,7 +122,7 @@ public class Controller {
         Superhero heroToDelete = null;
         while (!heroChosen) {
             ui.signalMessage(SignalEnum.CHOOSE_HERO);
-            printHeroes();
+            ui.printHeroes(superHeroDataBase.getSuperheroes());
             try {
                 indexHeroToEdit = keyboard.nextInt();
             } catch (InputMismatchException IME) {
@@ -171,7 +171,7 @@ public class Controller {
         Superhero heroToEdit = null;
         while (!heroChosen) {
             ui.signalMessage(SignalEnum.CHOOSE_HERO);
-            printHeroes();
+            ui.printHeroes(superHeroDataBase.getSuperheroes());
             try {
                 indexHeroToEdit = keyboard.nextInt();
             } catch (InputMismatchException IME) {
@@ -285,7 +285,7 @@ public class Controller {
         boolean answered = false;
         boolean isHuman = false;
         String superheroName = "";
-        String hasSuperName;
+        String hasSuperName = "";
         String superPowers;
         int Strength = 0;
         String name;

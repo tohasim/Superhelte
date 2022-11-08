@@ -76,18 +76,6 @@ public class UserInterface {
         printHero(heroToEdit, index);
     }
 
-    public void sortOptions(){
-        System.out.print("""
-                    Hvordan vil du gerne have dine superhelte sorteret?\s
-                    1: Efter skabelses år
-                    2: Efter hvis de er menneske
-                    3: Efter navn
-                    4: Efter styrke
-                    5: Efter superhelte navn
-                    9: Skal ikke sorteres
-                    """);
-    }
-
     public void sortingBy(SortOptions sortingBy) {
         String sortOption;
         switch (sortingBy){
@@ -103,9 +91,7 @@ public class UserInterface {
 
     public void showListMenu(SortOptions sortingBy, ArrayList<Superhero> superheroes) {
         sortingBy(sortingBy);
-        for (Superhero hero : superheroes) {
-            printHero(hero, superheroes.indexOf(hero));
-        }
+        printHeroes(superheroes);
         System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
                 "Sorteringsparametre er: \n" +
                 "   \"Skabelses år\"\n" +
@@ -113,5 +99,11 @@ public class UserInterface {
                 "   \"navn\"\n" +
                 "   \"styrke\"\n" +
                 "   \"superhelte navn\"\n");
+    }
+
+    public void printHeroes(ArrayList<Superhero> superheroes) {
+        for (Superhero hero : superheroes) {
+            printHero(hero, superheroes.indexOf(hero));
+        }
     }
 }
