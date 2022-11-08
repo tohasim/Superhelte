@@ -2,6 +2,7 @@ package MainClasses;
 
 import Comparators.*;
 import Enums.SignalEnum;
+import Enums.SortOptions;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
@@ -21,12 +22,14 @@ public class Controller {
     NameComparator nameComparator;
     StrengthComparator strengthComparator;
     SuperheroNameComparator superheroNameComparator;
+    SortOptions sortingBy;
 
     public Controller() throws FileNotFoundException {
         this.superHeroDataBase = new Database();
         this.keyboard = new Scanner(System.in);
         this.ui = new UserInterface();
         fileHandler = new FileHandler();
+        sortingBy = SortOptions.NAME;
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -42,51 +45,26 @@ public class Controller {
         mainLoop();
     }
 
-    public void sortHeroes() {
-        ui.sortOptions();
-
-        boolean startSorter = true;
-        Scanner SH = new Scanner(System.in);
-
-        while (startSorter) {
-
-
-            int input = SH.nextInt();
-            switch (input) {
-                case 1:
-                    superHeroDataBase.getSuperheroes().sort(yearComparator);
-                    printHeroes();
-                    startSorter = false;
-                    break;
-                case 2:
-                    superHeroDataBase.getSuperheroes().sort(humanComparator);
-                    printHeroes();
-                    startSorter = false;
-                    break;
-                case 3:
-                    superHeroDataBase.getSuperheroes().sort(nameComparator);
-                    printHeroes();
-                    startSorter = false;
-                    break;
-                case 4:
-                    superHeroDataBase.getSuperheroes().sort(strengthComparator);
-                    printHeroes();
-                    startSorter = false;
-                    break;
-                case 5:
-                    superHeroDataBase.getSuperheroes().sort(superheroNameComparator);
-                    printHeroes();
-                    startSorter = false;
-                    break;
-                case 9:
-                    startSorter = false;
-                    break;
-                default:
-                    ui.signalMessage(SignalEnum.NOT_AN_OPTION);
-                    break;
-            }
+    public ArrayList<Superhero> heroesSortedBy(SortOptions sortingBy) {
+        ArrayList<Superhero> returnList = superHeroDataBase.getSuperheroes();
+        switch (sortingBy) {
+            case CREATION_YEAR:
+                returnList.sort(yearComparator);
+                break;
+            case IS_HUMAN:
+                returnList.sort(humanComparator);
+                break;
+            case NAME:
+                returnList.sort(nameComparator);
+                break;
+            case STRENGTH:
+                returnList.sort(strengthComparator);
+                break;
+            case SUPERHERO_NAME:
+                returnList.sort(superheroNameComparator);
+                break;
         }
-        unsavedChanges = true;
+        return returnList;
     }
 
     private void createLoadedHeroes() throws FileNotFoundException {
@@ -121,10 +99,6 @@ public class Controller {
                     break;
                 case 5:
                     deleteHero();
-                    break;
-                case 6:
-                    System.out.println("work in progress");
-                    sortHeroes();
                     break;
                 case 7:
                     fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
@@ -173,8 +147,25 @@ public class Controller {
     }
 
     public void printHeroes() {
-        for (Superhero hero : superHeroDataBase.getSuperheroes()) {
-            ui.printHero(hero, superHeroDataBase.getSuperheroes().indexOf(hero));
+        boolean inMenu = true;
+        while(inMenu){
+            ArrayList<Superhero> sortedHeroes = heroesSortedBy(sortingBy);
+            ui.showListMenu(sortingBy, sortedHeroes);
+            String[] userChoice = keyboard.nextLine().split(" ");
+            switch (userChoice[0].toLowerCase()){
+                case "sorter" -> {
+                    switch (String.join(" ", userChoice).toLowerCase()){
+                        case "sorter efter skabelses år" -> sortingBy = SortOptions.CREATION_YEAR;
+                        case "sorter efter menneske status" -> sortingBy = SortOptions.IS_HUMAN;
+                        case "sorter efter navn" -> sortingBy = SortOptions.NAME;
+                        case "sorter efter styrke" -> sortingBy = SortOptions.STRENGTH;
+                        case "sorter efter superhelte navn" -> sortingBy = SortOptions.SUPERHERO_NAME;
+                        default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
+                    }
+                }
+                case "tilbage" -> inMenu = false;
+                default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
+            }
         }
     }
 
@@ -299,7 +290,7 @@ public class Controller {
         boolean answered = false;
         boolean isHuman = false;
         String superheroName = "";
-        String hasSuperName = "";
+        String hasSuperName;
         String superPowers;
         int Strength = 0;
         String name;

@@ -1,6 +1,10 @@
 package MainClasses;
 
 import Enums.SignalEnum;
+import Enums.SortOptions;
+import FileAndDatabase.Database;
+
+import java.util.ArrayList;
 
 public class UserInterface {
 
@@ -14,7 +18,6 @@ public class UserInterface {
                 "3: Søg efter superhelt\n" +
                 "4: Redigér superhelt\n" +
                 "5: Slet helt\n" +
-                "6: sorter helte\n" +
                 "7: gem list til liste\n" +
                 "8: hent helte fra liste\n" +
                 "9: Afslut");
@@ -43,6 +46,7 @@ public class UserInterface {
             case ASK_FOR_POWERS -> System.out.println("Hvilke superkræfter har din superhelt? (f.eks: \"flyve, røngtensyn, superduft\")");
             case ASK_FOR_CREATION_YEAR -> System.out.println("Hvilket år er din superhelt lavet?");
             case ASK_FOR_STRENGTH_LEVEL -> System.out.println("Hvor stærk er din superhelt?");
+            case NOT_UNDERSTOOD -> System.out.println("Det forstod jeg ikke");
         }
     }
     public void printHero(Superhero hero, int index){
@@ -84,5 +88,32 @@ public class UserInterface {
                     5: Efter superhelte navn
                     9: Skal ikke sorteres
                     """);
+    }
+
+    public void sortingBy(SortOptions sortingBy) {
+        String sortOption;
+        switch (sortingBy){
+            case CREATION_YEAR -> sortOption = "skabelses år";
+            case IS_HUMAN -> sortOption = "om de er menneske";
+            case NAME -> sortOption = "navn";
+            case STRENGTH -> sortOption = "styrke";
+            case SUPERHERO_NAME -> sortOption = "superhelte navn";
+            default -> sortOption = "ingenting";
+        }
+        System.out.println("Helte sorteret efter " + sortOption);
+    }
+
+    public void showListMenu(SortOptions sortingBy, ArrayList<Superhero> superheroes) {
+        sortingBy(sortingBy);
+        for (Superhero hero : superheroes) {
+            printHero(hero, superheroes.indexOf(hero));
+        }
+        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
+                "Sorteringsparametre er: \n" +
+                "   \"Skabelses år\"\n" +
+                "   \"menneske status\"\n" +
+                "   \"navn\"\n" +
+                "   \"styrke\"\n" +
+                "   \"superhelte navn\"\n");
     }
 }
