@@ -74,6 +74,9 @@ public class Controller {
     }
 
     private void mainLoop() throws FileNotFoundException {
+        Music music = new Music();
+        music.loadMusic();
+
         boolean shouldRun = true;
         int menuItem = 0;
         while (shouldRun) {
@@ -99,14 +102,6 @@ public class Controller {
                     break;
                 case 5:
                     deleteHero();
-                    break;
-                case 7:
-                    fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
-                    unsavedChanges = false;
-                    break;
-                case 8:
-                    fileHandler.loadHeroes();
-                    unsavedChanges = false;
                     break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
