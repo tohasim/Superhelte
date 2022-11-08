@@ -129,6 +129,7 @@ public class Controller {
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
                     if (unsavedChanges) {
+                        superHeroDataBase.getSuperheroes().sort(nameComparator.thenComparing(strengthComparator));
                         fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
                     }
                     shouldRun = false;

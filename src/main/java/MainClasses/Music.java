@@ -1,3 +1,5 @@
+package MainClasses;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
@@ -18,7 +20,7 @@ public class Music {
 
         }catch (Exception e){
             System.out.println("can not find music file \n" +
-                    "go to the Music class and change the file location on line 9");
+                    "go to the MainClasses.Music class and change the file location on line 9");
         }
     }
 
