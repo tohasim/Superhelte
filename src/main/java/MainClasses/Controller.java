@@ -126,14 +126,6 @@ public class Controller {
                     System.out.println("work in progress");
                     sortHeroes();
                     break;
-                case 7:
-                    fileHandler.saveHeroes(superHeroDataBase.getSuperheroes());
-                    unsavedChanges = false;
-                    break;
-                case 8:
-                    fileHandler.loadHeroes();
-                    unsavedChanges = false;
-                    break;
                 case 9:
                     ui.signalMessage(SignalEnum.GOODBYE);
                     if (unsavedChanges) {

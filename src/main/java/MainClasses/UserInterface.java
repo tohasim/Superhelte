@@ -15,8 +15,6 @@ public class UserInterface {
                 "4: Redigér superhelt\n" +
                 "5: Slet helt\n" +
                 "6: sorter helte\n" +
-                "7: gem list til liste\n" +
-                "8: hent helte fra liste\n" +
                 "9: Afslut");
     }
 
