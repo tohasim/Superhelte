@@ -96,6 +96,9 @@ public class Controller {
     }
 
     private void mainLoop() throws FileNotFoundException {
+        Music music = new Music();
+        music.loadMusic();
+
         boolean shouldRun = true;
         int menuItem = 0;
         while (shouldRun) {
