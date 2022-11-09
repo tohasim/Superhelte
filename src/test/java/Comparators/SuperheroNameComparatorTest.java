@@ -22,17 +22,53 @@ class SuperheroNameComparatorTest {
         db2 = new Database();
     }
     @Test
-    void compare() {
+    void compareGreater() {
         //Arrange
-        db.createTestData();
         SuperheroNameComparator nameComparator = new SuperheroNameComparator();
+        Superhero superheroA = new Superhero("Bruce Wayne", true, "a", "Rig", 1964, 1337);
+        Superhero superheroB = new Superhero("Clark Kent", false, "b", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        Superhero superheroC = new Superhero("Homelander", true, "c", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
+        db.createHero(superheroA);
+        db.createHero(superheroB);
+        db.createHero(superheroC);
         //Act
-        int expected = 0;
-        int actual = nameComparator.compare(db.getSuperheroes().get(0),db.getSuperheroes().get(1));
+        int expected = 1;
+        int actual = nameComparator.compare(db.getSuperheroes().get(1),db.getSuperheroes().get(0));
         //Assert
         assertEquals(expected,actual);
     }
-
+    @Test
+    void compareEqual() {
+        //Arrange
+        SuperheroNameComparator nameComparator = new SuperheroNameComparator();
+        Superhero superheroA = new Superhero("Bruce Wayne", true, "a", "Rig", 1964, 1337);
+        Superhero superheroB = new Superhero("Clark Kent", false, "b", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        Superhero superheroC = new Superhero("Homelander", true, "c", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
+        db.createHero(superheroA);
+        db.createHero(superheroB);
+        db.createHero(superheroC);
+        //Act
+        int expected = 0;
+        int actual = nameComparator.compare(db.getSuperheroes().get(1),db.getSuperheroes().get(1));
+        //Assert
+        assertEquals(expected,actual);
+    }
+    @Test
+    void compareLower() {
+        //Arrange
+        SuperheroNameComparator nameComparator = new SuperheroNameComparator();
+        Superhero superheroA = new Superhero("Bruce Wayne", true, "a", "Rig", 1964, 1337);
+        Superhero superheroB = new Superhero("Clark Kent", false, "b", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        Superhero superheroC = new Superhero("Homelander", true, "c", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
+        db.createHero(superheroA);
+        db.createHero(superheroB);
+        db.createHero(superheroC);
+        //Act
+        int expected = -1;
+        int actual = nameComparator.compare(db.getSuperheroes().get(1),db.getSuperheroes().get(2));
+        //Assert
+        assertEquals(expected,actual);
+    }
     @Test
     void testSortTestData(){
         //Arrange
