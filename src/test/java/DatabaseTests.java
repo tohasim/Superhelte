@@ -26,7 +26,7 @@ class DatabaseTests {
         db.createHero("TestNavn2", true, "", "Testkræfter2", 123, 456);
 
         //Assert
-        assertEquals(expectedSize, db.superheroes.size());
+        assertEquals(expectedSize, db.getSuperheroes().size());
     }
 
     @Test
@@ -39,7 +39,7 @@ class DatabaseTests {
 
         //Assert
 
-        assertEquals(expectedSize, db.superheroes.size());
+        assertEquals(expectedSize, db.getSuperheroes().size());
     }
 
     @Test
