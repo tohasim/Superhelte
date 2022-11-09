@@ -5,30 +5,45 @@ import MainClasses.Superhero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
+class StrengthComparatorTest{
 
-class StrengthComparatorTest implements Comparator<Superhero> {
+    Database DB;
+    Database testDB;
 
-    @Override
-    public int compare(Superhero o1, Superhero o2) {
-        return o1.getStrength() - o2.getStrength();
+
+    @BeforeEach
+    void setUp(){
+        DB = new Database();
+        testDB = new Database();
     }
 
     @Test
     public void tester() {
 
+
         //Arrange
-        int ekspectetValue = -333;
+        testDB.createTestData();
+        StrengthComparator SC = new StrengthComparator();
+
+        Superhero hero1 = new Superhero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
+        Superhero hero2 = new Superhero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        Superhero hero3 = new Superhero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
+        Superhero hero4 = new Superhero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
+
+        DB.createHero(hero1);
+        DB.createHero(hero4);
+        DB.createHero(hero3);
+        DB.createHero(hero2);
 
         //Act
-        Superhero superhero1 = new Superhero("TestNavn1", true, "", "Testkræfter1", 123, 456);
-        Superhero superhero2 = new Superhero("TestNavn2", true, "", "Testkræfter2", 456, 789);
-
+        testDB.getSuperheroes().sort(SC);
         //Assert
-        assertEquals(compare(superhero1, superhero2), ekspectetValue);
+        for (int i = 0; i < testDB.getSuperheroes().size(); i++) {
+            assertEquals(testDB.getSuperheroes().get(i).getName(), DB.getSuperheroes().get(i).getName());
+
+        }
 
     }
 }
