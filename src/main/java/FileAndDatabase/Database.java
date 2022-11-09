@@ -33,10 +33,10 @@ public class Database {
         return matches;
     }
     public void createTestData() {
-        createHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
+        createHero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
         createHero("Bruce Wayne", true, "Batman", "Rig", 1964, 1337);
         createHero("Homelander", true, "", "Flyve, Røngtensyn, Laserøjne", 2020, 8999);
-        createHero("Queen Maeve", true, "", "Superstyke, Plot armor", 2020, 7000);
+        createHero("Clark Kent", false, "Superman", "Flyve, Røngtensyn, laserøjne", 1963, 9000);
     }
 
     public ArrayList<Superhero> getSuperheroes() {
