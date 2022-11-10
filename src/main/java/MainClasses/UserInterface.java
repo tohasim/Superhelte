@@ -119,7 +119,7 @@ public class UserInterface {
                 "   \"superhelte navn\"\n");
     }
 
-    public void sortingBy2(SortOptions sortingBy, SortOptions sortingBy2) {
+    public void sortingBy(SortOptions sortingBy, SortOptions sortingBy2) {
         String sortOption;
         String sortOption2;
         switch (sortingBy){
@@ -138,11 +138,11 @@ public class UserInterface {
             case SUPERHERO_NAME -> sortOption2 = "superhelte navn";
             default -> sortOption2 = "ingenting";
         }
-        System.out.println("Helte sorteret efter " + sortOption + " og der efter " + sortOption2);
+        System.out.println("Helte sorteret efter " + sortOption + " og derefter " + sortOption2);
     }
 
-    public void showListMenu2(SortOptions sortingBy, SortOptions sortingBy2, ArrayList<Superhero> superheroes) {
-        sortingBy2(sortingBy, sortingBy2);
+    public void showListMenu(SortOptions sortingBy, SortOptions sortingBy2, ArrayList<Superhero> superheroes) {
+        sortingBy(sortingBy, sortingBy2);
         printHeroes(superheroes);
         System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
                 "Sorteringsparametre er: \n" +

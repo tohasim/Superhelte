@@ -29,7 +29,6 @@ public class Controller {
         this.ui = new UserInterface();
         fileHandler = new FileHandler();
         sortingBy = SortOptions.NAME;
-        sortingBy2 = SortOptions.NAME;
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -66,51 +65,74 @@ public class Controller {
         }
         return returnList;
     }
-
-    public ArrayList<Superhero> sortThen(String primære, String sekundære) {
+    public ArrayList<Superhero> heroesSortedBy(SortOptions sortingBy, SortOptions sortingBy2) {
         ArrayList<Superhero> returnList = superHeroDataBase.getSuperheroes();
-        Comparator firstSorter = null;
-        Comparator sekundSorter = null;
+        Comparator primaryComparator = null;
+        Comparator secondaryComparator = null;
+        primaryComparator = switch (sortingBy) {
+            case CREATION_YEAR -> yearComparator;
+            case IS_HUMAN -> humanComparator;
+            case NAME -> nameComparator;
+            case STRENGTH -> strengthComparator;
+            case SUPERHERO_NAME -> superheroNameComparator;
+        };
+        secondaryComparator = switch (sortingBy2) {
+            case CREATION_YEAR -> yearComparator;
+            case IS_HUMAN -> humanComparator;
+            case NAME -> nameComparator;
+            case STRENGTH -> strengthComparator;
+            case SUPERHERO_NAME -> superheroNameComparator;
+        };
 
-        switch (primære) {
-            case "CREATION_YEAR":
-                firstSorter = yearComparator;
-                break;
-            case "IS_HUMAN":
-                firstSorter = humanComparator;
-                break;
-            case "NAME":
-                firstSorter = nameComparator;
-                break;
-            case "STRENGTH":
-                firstSorter = strengthComparator;
-                break;
-            case "SUPERHERO_NAME":
-                firstSorter = superheroNameComparator;
-                break;
-        }
-
-        switch (sekundære) {
-            case "CREATION_YEAR":
-                sekundSorter = yearComparator;
-                break;
-            case "IS_HUMAN":
-                sekundSorter = humanComparator;
-                break;
-            case "NAME":
-                sekundSorter = nameComparator;
-                break;
-            case "STRENGTH":
-                sekundSorter = strengthComparator;
-                break;
-            case "SUPERHERO_NAME":
-                sekundSorter = superheroNameComparator;
-                break;
-        }
-
-        returnList.sort(firstSorter.thenComparing(sekundSorter));
+        returnList.sort(primaryComparator.thenComparing(secondaryComparator));
         return returnList;
     }
+
+
+//    public ArrayList<Superhero> sortThen(String primære, String sekundære) {
+//        ArrayList<Superhero> returnList = superHeroDataBase.getSuperheroes();
+//        Comparator firstSorter = null;
+//        Comparator secondSorter = null;
+//
+//        switch (primære) {
+//            case "CREATION_YEAR":
+//                firstSorter = yearComparator;
+//                break;
+//            case "IS_HUMAN":
+//                firstSorter = humanComparator;
+//                break;
+//            case "NAME":
+//                firstSorter = nameComparator;
+//                break;
+//            case "STRENGTH":
+//                firstSorter = strengthComparator;
+//                break;
+//            case "SUPERHERO_NAME":
+//                firstSorter = superheroNameComparator;
+//                break;
+//        }
+//
+//        switch (sekundære) {
+//            case "CREATION_YEAR":
+//                secondSorter = yearComparator;
+//                break;
+//            case "IS_HUMAN":
+//                secondSorter = humanComparator;
+//                break;
+//            case "NAME":
+//                secondSorter = nameComparator;
+//                break;
+//            case "STRENGTH":
+//                secondSorter = strengthComparator;
+//                break;
+//            case "SUPERHERO_NAME":
+//                secondSorter = superheroNameComparator;
+//                break;
+//        }
+//
+//        returnList.sort(firstSorter.thenComparing(secondSorter));
+//        return returnList;
+//    }
 
     private void createLoadedHeroes() throws FileNotFoundException {
         for (Superhero superhero : fileHandler.loadHeroes()) {
@@ -188,9 +210,15 @@ public class Controller {
 
     public void printHeroes() {
         boolean inMenu = true;
-        ArrayList<Superhero> sortedHeroes = heroesSortedBy(sortingBy);
-        ui.showListMenu(sortingBy, sortedHeroes);
         while (inMenu) {
+            if (sortingBy2 == null){
+                ArrayList<Superhero> sortedHeroes = heroesSortedBy(sortingBy);
+                ui.showListMenu(sortingBy, sortedHeroes);
+            }
+            else {
+                ArrayList<Superhero> sortedHeroes = heroesSortedBy(sortingBy, sortingBy2);
+                ui.showListMenu(sortingBy, sortingBy2, sortedHeroes);
+            }
             String[] userChoice = keyboard.nextLine().split(",");
             if (userChoice.length == 1) {
                 String[] input = userChoice[0].split(" ");
@@ -208,35 +236,32 @@ public class Controller {
                     case "tilbage" -> inMenu = false;
                     default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
                 }
-                ui.showListMenu(sortingBy, sortedHeroes);
-
             } else if (userChoice.length == 2) {
-                String firstSort = "";
+//                String firstSort = "";
 
                 switch (userChoice[0].toLowerCase()) {
-                    case "sorter efter skabelses år" -> {firstSort = "CREATION_YEAR"; sortingBy = SortOptions.CREATION_YEAR;}
-                    case "sorter efter menneske status" -> {firstSort = "IS_HUMAN"; sortingBy = SortOptions.IS_HUMAN;}
-                    case "sorter efter navn" -> {firstSort = "NAME"; sortingBy = SortOptions.NAME;}
-                    case "sorter efter styrke" -> {firstSort = "STRENGTH"; sortingBy = SortOptions.STRENGTH;}
-                    case "sorter efter superhelte navn" -> {firstSort = "SUPERHERO_NAME"; sortingBy = SortOptions.SUPERHERO_NAME;}
+                    case "sorter efter skabelses år" -> {/*firstSort = "CREATION_YEAR";*/ sortingBy = SortOptions.CREATION_YEAR;}
+                    case "sorter efter menneske status" -> {/*firstSort = "IS_HUMAN"; */sortingBy = SortOptions.IS_HUMAN;}
+                    case "sorter efter navn" -> {/*firstSort = "NAME"; */sortingBy = SortOptions.NAME;}
+                    case "sorter efter styrke" -> {/*firstSort = "STRENGTH"; */sortingBy = SortOptions.STRENGTH;}
+                    case "sorter efter superhelte navn" -> {/*firstSort = "SUPERHERO_NAME"; */sortingBy = SortOptions.SUPERHERO_NAME;}
                     case "tilbage" -> inMenu = false;
                     default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
                 }
 
                 switch (userChoice[1].toLowerCase()) {
 
-                    case " skabelses år" -> {sortThen(firstSort, "CREATION_YEAR"); sortingBy2 = SortOptions.CREATION_YEAR;}
-                    case " menneske status" -> {sortThen(firstSort, "IS_HUMAN"); sortingBy2 = SortOptions.IS_HUMAN;}
-                    case " navn" -> {sortThen(firstSort, "NAME"); sortingBy2 = SortOptions.NAME;}
-                    case " styrke" -> {sortThen(firstSort, "STRENGTH"); sortingBy2 = SortOptions.STRENGTH;}
-                    case " superhelte navn" -> {sortThen(firstSort, "SUPERHERO_NAME"); sortingBy2 = SortOptions.SUPERHERO_NAME;}
+                    case " skabelses år" -> {/*sortThen(firstSort, "CREATION_YEAR"); */sortingBy2 = SortOptions.CREATION_YEAR;}
+                    case " menneske status" -> {/*sortThen(firstSort, "IS_HUMAN"); */sortingBy2 = SortOptions.IS_HUMAN;}
+                    case " navn" -> {/*sortThen(firstSort, "NAME"); */sortingBy2 = SortOptions.NAME;}
+                    case " styrke" -> {/*sortThen(firstSort, "STRENGTH"); */sortingBy2 = SortOptions.STRENGTH;}
+                    case " superhelte navn" -> {/*sortThen(firstSort, "SUPERHERO_NAME"); */sortingBy2 = SortOptions.SUPERHERO_NAME;}
                     case "tilbage" -> inMenu = false;
                     default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
                 }
-                ui.showListMenu2(sortingBy, sortingBy2, sortedHeroes);
             } else {
                 ui.signalMessage(SignalEnum.INCORRECT_INPUT);
-                ui.showListMenu(sortingBy, sortedHeroes);
+//                ui.showListMenu(sortingBy, sortedHeroes);
             }
         }
     }
@@ -322,7 +347,7 @@ public class Controller {
                 intSet = false;
                 while (!intSet) {
                     try {
-                        heroToEdit.setCreationYear(Integer.parseInt(change));
+                        heroToEdit.setStrength(Integer.parseInt(change));
                         intSet = true;
                     } catch (InputMismatchException IME) {
                         ui.signalMessage(SignalEnum.INCORRECT_INPUT_INT);
