@@ -199,7 +199,6 @@ public class Controller {
                     default -> ui.signalMessage(SignalEnum.NOT_UNDERSTOOD);
                 }
             } else if (userChoice.length == 2) {
-//                String firstSort = "";
 
                 switch (userChoice[0].toLowerCase()) {
                     case "sorter efter skabelses år" -> {sortingBy = SortOptions.CREATION_YEAR;}

@@ -110,7 +110,8 @@ public class UserInterface {
     public void showListMenu(SortOptions sortingBy, ArrayList<Superhero> superheroes) {
         sortingBy(sortingBy);
         printHeroes(superheroes);
-        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
+        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\n" +
+                "Du kan også give et extra sorterings kriterie ved at skrive \"Sorter efter {sorteringsparameter}, {sorteringsparameter}\"\n " +
                 "Sorteringsparametre er: \n" +
                 "   \"Skabelses år\"\n" +
                 "   \"menneske status\"\n" +
@@ -144,7 +145,8 @@ public class UserInterface {
     public void showListMenu(SortOptions sortingBy, SortOptions sortingBy2, ArrayList<Superhero> superheroes) {
         sortingBy(sortingBy, sortingBy2);
         printHeroes(superheroes);
-        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
+        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\n" +
+                "Du kan også give et extra sorterings kriterie ved at skrive \"Sorter efter {sorteringsparameter}, {sorteringsparameter}\"\n " +
                 "Sorteringsparametre er: \n" +
                 "   \"Skabelses år\"\n" +
                 "   \"menneske status\"\n" +
@@ -152,7 +154,6 @@ public class UserInterface {
                 "   \"styrke\"\n" +
                 "   \"superhelte navn\"\n");
     }
-
 
     public void printHeroes(ArrayList<Superhero> superheroes) {
         for (Superhero hero : superheroes) {
