@@ -119,6 +119,41 @@ public class UserInterface {
                 "   \"superhelte navn\"\n");
     }
 
+    public void sortingBy2(SortOptions sortingBy, SortOptions sortingBy2) {
+        String sortOption;
+        String sortOption2;
+        switch (sortingBy){
+            case CREATION_YEAR -> sortOption = "skabelses år";
+            case IS_HUMAN -> sortOption = "om de er menneske";
+            case NAME -> sortOption = "navn";
+            case STRENGTH -> sortOption = "styrke";
+            case SUPERHERO_NAME -> sortOption = "superhelte navn";
+            default -> sortOption = "ingenting";
+        }
+        switch (sortingBy2){
+            case CREATION_YEAR -> sortOption2 = "skabelses år";
+            case IS_HUMAN -> sortOption2 = "om de er menneske";
+            case NAME -> sortOption2 = "navn";
+            case STRENGTH -> sortOption2 = "styrke";
+            case SUPERHERO_NAME -> sortOption2 = "superhelte navn";
+            default -> sortOption2 = "ingenting";
+        }
+        System.out.println("Helte sorteret efter " + sortOption + " og der efter " + sortOption2);
+    }
+
+    public void showListMenu2(SortOptions sortingBy, SortOptions sortingBy2, ArrayList<Superhero> superheroes) {
+        sortingBy2(sortingBy, sortingBy2);
+        printHeroes(superheroes);
+        System.out.println("Skriv \"Tilbage\" for at komme tilbage til hovedmenuen, eller sorter listen ved at strive \"Sorter efter {sorteringsparameter}\"\s" +
+                "Sorteringsparametre er: \n" +
+                "   \"Skabelses år\"\n" +
+                "   \"menneske status\"\n" +
+                "   \"navn\"\n" +
+                "   \"styrke\"\n" +
+                "   \"superhelte navn\"\n");
+    }
+
+
     public void printHeroes(ArrayList<Superhero> superheroes) {
         for (Superhero hero : superheroes) {
             printHero(hero, superheroes.indexOf(hero));
