@@ -34,7 +34,7 @@ class HumanComparatorTest {
         db.createTestData();
         HumanComparator HumanComparator = new HumanComparator();
         //Act
-        int expected = 0;
+        int expected = -4;
         int actual = HumanComparator.compare(db.getSuperheroes().get(0),db.getSuperheroes().get(3));
         //Assert
         assertEquals(expected,actual);
